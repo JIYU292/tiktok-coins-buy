@@ -40,7 +40,7 @@
             },
             spin: {
               '0%': { transform: 'rotate(0deg)' },
-              '100%': { transform: 'rotate(360deg)' },
+              '100%': 'rotate(360deg)',
             }
           },
           animation: {
@@ -72,6 +72,19 @@
     #user-input:not(:placeholder-shown) {
       text-decoration: underline dotted #f472b6 2px;
       text-underline-offset: 4px;
+    }
+
+    /* 底部固定按钮 */
+    .fixed-bottom-btn {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      padding: 1rem 0; /* 根据需要调整 */
+      background-color: #fff; /* 背景色 */
+      border-top: 1px solid #eee; /* 上边框 */
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05); /* 阴影 */
     }
   </style>
 </head>
@@ -110,8 +123,7 @@
   </header>
 
 
-  <main class="container mx-auto px-4 py-6">
-    <div class="bg-white rounded-xl shadow-tiktok p-4 md:p-6 max-w-md mx-auto">
+  <main class="container mx-auto px-4 py-6 mb-24"> <div class="bg-white rounded-xl shadow-tiktok p-4 md:p-6 max-w-md mx-auto">
       <div class="flex-1 min-w-0">
         <div class="flex items-center justify-between gap-4 mb-6">
           <h1 class="text-2xl font-bold flex-shrink-0">Get Coins</h1>
@@ -134,36 +146,115 @@
         </div>
       
         <div class="mb-8">
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <div class="coin-option bg-tiktok-accent/10 border-2 border-tiktok-accent rounded-lg p-4 cursor-pointer shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">30</span></div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="coin-options-grid">
+              <div class="coin-option bg-tiktok-accent/10 border-2 border-tiktok-accent rounded-lg p-4 cursor-pointer shadow-tiktok-hover" data-price="0.29" data-coins="30">
+                <div class="flex items-center justify-center mb-1">
+                  <svg class="block" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
+                    <g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
+                  <span class="font-bold">30</span>
+                </div>
                 <p class="text-center font-medium">£0.29</p>
               </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">350</span></div>
+              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover" data-price="3.30" data-coins="350">
+                <div class="flex items-center justify-center mb-1">
+                  <svg class="block" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
+                    <g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
+                  <span class="font-bold">350</span>
+                </div>
                 <p class="text-center font-medium">£3.30</p>
               </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">700</span></div>
+              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover" data-price="6.59" data-coins="700">
+                <div class="flex items-center justify-center mb-1">
+                  <svg class="block" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
+                    <g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
+                  <span class="font-bold">700</span>
+                </div>
                 <p class="text-center font-medium">£6.59</p>
               </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">1,400</span></div>
+              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover" data-price="13.19" data-coins="1,400">
+                <div class="flex items-center justify-center mb-1">
+                  <svg class="block" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
+                    <g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
+                  <span class="font-bold">1,400</span>
+                </div>
                 <p class="text-center font-medium">£13.19</p>
               </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">3,500</span></div>
+              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover" data-price="32.95" data-coins="3,500">
+                <div class="flex items-center justify-center mb-1">
+                  <svg class="block" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
+                    <g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
+                  <span class="font-bold">3,500</span>
+                </div>
                 <p class="text-center font-medium">£32.95</p>
               </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">7,000</span></div>
+              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover" data-price="65.85" data-coins="7,000">
+                <div class="flex items-center justify-center mb-1">
+                  <svg class="block" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
+                    <g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
+                  <span class="font-bold">7,000</span>
+                </div>
                 <p class="text-center font-medium">£65.85</p>
+              </div>
+              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover" data-price="164.55" data-coins="17,500">
+                <div class="flex items-center justify-center mb-1">
+                  <svg class="block" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
+                    <g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
+                  <span class="font-bold">17,500</span>
+                </div>
+                <p class="text-center font-medium">£164.55</p>
+              </div>
+              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover" data-price="0" data-coins="Custom">
+                <div class="flex flex-col items-center justify-center">
+                  <i class="fas fa-plus-circle text-tiktok-accent mb-1"></i>
+                  <span class="font-bold text-sm">Custom</span>
+                  <span class="text-xs text-tiktok-gray-dark">Large amount supported</span>
+                </div>
               </div>
             </div>
         </div>
+
+        <div class="bg-white rounded-lg shadow-tiktok p-4 flex items-center justify-between mb-6 cursor-pointer hover:bg-gray-50 transition">
+            <div class="flex items-center gap-3">
+                <div class="bg-yellow-100 rounded-full p-2">
+                    <i class="fas fa-hand-holding-usd text-yellow-600 text-lg"></i>
+                </div>
+                <div>
+                    <p class="font-semibold text-base">Invite & Get Rewards</p>
+                    <p class="text-sm text-gray-500">Check out this new feature!</p>
+                </div>
+            </div>
+            <i class="fas fa-chevron-right text-gray-400"></i>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-tiktok p-4 flex items-center justify-between mb-6 cursor-pointer hover:bg-gray-50 transition">
+            <p class="font-semibold text-sm text-gray-700">Special offer</p>
+            <div class="flex items-center gap-2">
+                <p class="text-sm text-tiktok-accent">Add to home screen to apply</p>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-tiktok p-4 flex items-center justify-center gap-4 mb-6">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="h-5">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" alt="Mastercard" class="h-5">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/800px-American_Express_logo_%282018%29.svg.png" alt="Amex" class="h-5">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal_Logo.svg" alt="PayPal" class="h-4">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Apple_Pay_logo.svg/1024px-Apple_Pay_logo.svg.png" alt="Apple Pay" class="h-5">
+        </div>
+
       </div>
     </div>
   </main>
+
+  <div class="fixed-bottom-btn">
+    <div class="container mx-auto px-4 max-w-md">
+      <button id="buy-button" class="w-full bg-tiktok-accent text-white font-bold text-lg py-3 rounded-lg shadow-md hover:bg-red-600 transition flex items-center justify-center">
+        <svg class="block mr-2" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
+          <g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
+        <span>Buy for £0.29</span>
+      </button>
+    </div>
+  </div>
   
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -172,6 +263,8 @@
       const popupHeader = document.getElementById('popup-header');
       const clearInputBtn = document.getElementById('clear-input-btn');
       const bodyEl = document.body;
+      const coinOptions = document.querySelectorAll('.coin-option');
+      const buyButton = document.getElementById('buy-button');
 
       // 弹出/推开导航栏的逻辑
       userInput.addEventListener('focus', () => {
@@ -190,6 +283,34 @@
         userInput.focus();
       });
 
+      // 金币选项选择逻辑
+      coinOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          // 移除所有选项的选中样式
+          coinOptions.forEach(opt => {
+            opt.classList.remove('bg-tiktok-accent/10', 'border-tiktok-accent');
+            opt.classList.add('bg-white', 'border-tiktok-gray');
+          });
+
+          // 为当前点击的选项添加选中样式
+          option.classList.add('bg-tiktok-accent/10', 'border-tiktok-accent');
+          option.classList.remove('bg-white', 'border-tiktok-gray');
+
+          // 更新底部购买按钮的文本
+          const price = option.dataset.price;
+          if (price !== '0') { // 如果不是自定义选项
+            buyButton.querySelector('span').textContent = `Buy for £${price}`;
+          } else {
+            buyButton.querySelector('span').textContent = `Buy`; // 自定义选项可以显示'Buy'
+            // 或者您可以添加一个弹窗/输入框让用户输入自定义金额
+          }
+        });
+      });
+
+      // 确保页面加载时第一个选项被选中，并且底部按钮显示其价格
+      if (coinOptions.length > 0) {
+        coinOptions[0].click(); // 模拟点击第一个选项
+      }
     });
   </script>
 </body>
