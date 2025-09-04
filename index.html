@@ -15,7 +15,7 @@
             tiktok: {
               primary: '#000000',
               secondary: '#262626',
-              accent: '#FE2C55', // TikTok红
+              accent: '#FE2C55', // TikTok Red
               light: '#F7F7F7',
               gray: '#E5E5E5',
               'gray-dark': '#999999',
@@ -35,26 +35,26 @@
   </script>
   
   <style>
-    /* 基础样式 */
+    /* Base Styles */
     body {
       font-family: 'Inter', Helvetica, Arial, sans-serif;
       background-color: #FAFAFA;
     }
 
-    /* 自定义弹窗面板的滑入滑出效果 */
+    /* Slide-up/down transition for the custom panel */
     #custom-coin-panel {
         transition: transform 0.3s ease-in-out;
     }
     
-    /* 激活状态的充值按钮 */
+    /* Active state for the recharge button */
     .recharge-button.active {
-        background-color: #FE2C55; /* TikTok 红 */
+        background-color: #FE2C55; /* TikTok Red */
         cursor: pointer;
     }
     
-    /* 未激活状态的充值按钮 */
+    /* Inactive state for the recharge button */
     .recharge-button {
-        background-color: #fddde4; /* 浅粉色 */
+        background-color: #fddde4; /* Light Pink */
         cursor: not-allowed;
     }
   </style>
@@ -187,10 +187,9 @@
       const totalPriceEl = document.getElementById('total-price');
       const modalRechargeBtn = document.getElementById('modal-recharge-btn');
 
-      // --- 弹窗显示/隐藏逻辑 ---
+      // --- Modal Show/Hide Logic ---
       function showModal() {
         customCoinModal.classList.remove('hidden');
-        // 短暂延迟以触发CSS动画
         setTimeout(() => {
             customCoinPanel.classList.remove('translate-y-full');
         }, 10);
@@ -200,23 +199,21 @@
         customCoinPanel.classList.add('translate-y-full');
         setTimeout(() => {
             customCoinModal.classList.add('hidden');
-            // 清空输入和重置按钮状态
             amountInput.value = '';
             updateState(); 
-        }, 300); // 等待动画结束
+        }, 300);
       }
 
       customBtn.addEventListener('click', showModal);
       modalBackBtn.addEventListener('click', hideModal);
       customCoinModal.addEventListener('click', (e) => {
-        // 如果点击的是背景遮罩，则关闭弹窗
         if (e.target === customCoinModal) {
             hideModal();
         }
       });
 
 
-      // --- 键盘输入和状态更新逻辑 ---
+      // --- Keypad Input & State Update Logic ---
       keypad.addEventListener('click', (e) => {
         const key = e.target.closest('button')?.dataset.key;
         if (!key) return;
@@ -229,7 +226,6 @@
             currentValue += key;
         }
         
-        // 限制最大长度
         if (currentValue.length > 7) {
             currentValue = currentValue.slice(0, 7);
         }
@@ -238,12 +234,11 @@
         updateState();
       });
       
-      // --- 统一更新状态的函数 ---
+      // --- Central function to update UI state ---
       function updateState() {
           const value = amountInput.value;
           const amount = parseInt(value, 10);
           
-          // 更新输入框样式
           if (value) {
               amountInput.classList.remove('text-gray-400');
               amountInput.classList.add('text-black', 'font-semibold');
@@ -252,11 +247,11 @@
               amountInput.classList.add('text-gray-400');
           }
 
-          // 模拟价格计算 (每30金币约£0.29)
+          // Price simulation (approx. £0.29 per 30 coins)
           const price = isNaN(amount) ? 0 : (amount / 30) * 0.29;
           totalPriceEl.textContent = `£${price.toFixed(2)}`;
 
-          // 更新充值按钮状态
+          // Update recharge button state
           if (!isNaN(amount) && amount >= 30 && amount <= 2500000) {
               modalRechargeBtn.classList.add('active');
               modalRechargeBtn.disabled = false;
