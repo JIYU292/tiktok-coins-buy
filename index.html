@@ -1,195 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TikTok - Get Coins</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            tiktok: {
-              primary: '#000000',
-              secondary: '#262626',
-              accent: '#FE2C55', // TikTok红
-              light: '#F7F7F7',
-              gray: '#E5E5E5',
-              'gray-dark': '#999999',
-              'gray-light': '#F2F2F2',
-              'coin-yellow': '#FFD700'
-            },
-            loading: {
-              blue: '#165DFF' // 加载圈蓝色
-            }
-          },
-          fontFamily: {
-            sans: ['Inter', 'Helvetica', 'Arial', 'sans-serif']
-          },
-          boxShadow: {
-            'tiktok': '0 1px 2px rgba(0, 0, 0, 0.05)',
-            'tiktok-hover': '0 2px 8px rgba(0, 0, 0, 0.08)'
-          },
-          keyframes: {
-            bounce: {
-              '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-8px)' },
-            },
-            spin: {
-              '0%': { transform: 'rotate(0deg)' },
-              '100%': { transform: 'rotate(360deg)' },
-            }
-          },
-          animation: {
-            bounce: 'bounce 1s infinite',
-            spin: 'spin 1.5s linear infinite',
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Coins - Secure</title>
+    <style>
+        /* 引入一个更现代的字体，让观感更好 (可选) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        /* 页面基础样式 */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f8f8; /* 页面的浅灰色背景 */
+            display: flex;
+            justify-content: center; /* 水平居中 */
+            align-items: flex-start; /* 顶部对齐 */
+            padding-top: 40px; /* 与顶部的距离 */
+            margin: 0;
         }
-      }
-    }
-  </script>
-  
-  <style>
-    /* 基础样式 */
-    body {
-      font-family: 'Inter', Helvetica, Arial, sans-serif;
-      background-color: #FAFAFA;
-      transition: padding-top 0.3s ease-out;
-    }
-    
-    /* 当导航栏出现时，给body增加上边距 */
-    body.body-with-header {
-      padding-top: 4rem; /* 4rem = 64px, 和导航栏高度 h-16 一致 */
-    }
-    
-    /* 动态文本下划线效果 */
-    #user-input {
-      text-decoration: none;
-    }
-    #user-input:not(:placeholder-shown) {
-      text-decoration: underline dotted #f472b6 2px;
-      text-underline-offset: 4px;
-    }
-  </style>
+
+        /* 标题容器的样式 */
+        .secure-title-container {
+            display: inline-flex; /* 使用inline-flex让容器宽度自适应内容 */
+            align-items: center; /* 垂直居中对齐图标和文字 */
+            gap: 10px; /* 图标和文字之间的间距 */
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* SVG 图标的样式 */
+        .shield-icon {
+            width: 24px;  /* 设置图标宽度 */
+            height: 24px; /* 设置图标高度 */
+            color: #888888; /* 设置图标颜色为灰色 */
+        }
+        
+        /* "Get Coins" 文字的样式 */
+        .title-text {
+            font-size: 22px; /* 设置字体大小 */
+            font-weight: 600; /* 设置字体粗细 */
+            color: #333333; /* 设置文字颜色 */
+            margin: 0; /* 移除标题默认的边距 */
+        }
+    </style>
 </head>
+<body>
 
-<body class="text-tiktok-primary bg-[#FAFAFA] min-h-screen">
-
-  <header id="popup-header" class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm transition-transform duration-300 ease-out -translate-y-full">
-    <div class="container mx-auto px-4 h-16 flex items-center justify-between gap-2 sm:gap-4">
-      <div class="flex items-center flex-shrink-0">
-         <svg class="w-auto h-6 sm:h-7" viewBox="0 0 114 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><defs><filter id="filter0_d" x="-4" y="0" width="40" height="40" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dx="1" dy="4"></feOffset><feGaussianBlur stdDeviation="2.5"></feGaussianBlur><feColorMatrix type="matrix" values="0 0 0 0 0.992157 0 0 0 0 0.113725 0 0 0 0 0.309804 0 0 0 1 0"></feColorMatrix><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_d"></feBlend><feBlend mode="normal" in="SourceGraphic" in2="effect1_d" result="shape"></feBlend></filter><filter id="filter1_d" x="-5" y="-1" width="40" height="40" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dx="-2" dy="2"></feOffset><feGaussianBlur stdDeviation="1.5"></feGaussianBlur><feColorMatrix type="matrix" values="0 0 0 0 0.00392157 0 0 0 0 0.941176 0 0 0 0 0.921569 0 0 0 1 0"></feColorMatrix><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_d"></feBlend><feBlend mode="normal" in="SourceGraphic" in2="effect1_d" result="shape"></feBlend></filter></defs><g filter="url(#filter0_d)"><path d="M19.333 11.758c-1.25.01-2.023.83-2.023 2.05v9.11c0 1.218.773 2.04 2.023 2.05 1.25.01 2.023-.822 2.023-2.05v-9.11c0-1.218-.773-2.04-2.023-2.05Z" fill="#000"></path></g><g filter="url(#filter1_d)"><path d="M19.333 11.758c-1.25.01-2.023.83-2.023 2.05v9.11c0 1.218.773 2.04 2.023 2.05 1.25.01 2.023-.822 2.023-2.05v-9.11c0-1.218-.773-2.04-2.023-2.05Z" fill="#000"></path></g><path d="M19.333 11.758c-1.25.01-2.023.83-2.023 2.05v9.11c0 1.218.773 2.04 2.023 2.05 1.25.01 2.023-.822 2.023-2.05v-9.11c0-1.218-.773-2.04-2.023-2.05Z" fill="#000"></path><path d="M12.002 11.138c-.14-.02-3.32-.49-3.32 4.13v9.6c0 1.156.882 1.95 2.023 1.96 1.14.01 2.023-.794 2.023-1.96v-9.6c0-3.35-1.92-3.72-2.31-3.76l-.21-.02.21-.02c.39-.04 2.31.39 2.31 3.76v9.6c0 1.166-.882 1.95-2.023 1.96-1.14.01-2.023-.794-2.023-1.96v-9.6c0-4.62 3.18-4.15 3.32-4.13.14.02.28.08.4.15l-.4-.15Zm11.33 2.67v9.11c0 1.218.773 2.04 2.023 2.05 1.25.01 2.023-.822 2.023-2.05v-9.11c0-1.218-.773-2.04-2.023-2.05-1.25-.01-2.023.83-2.023 2.05Z" fill="#000"></path><path d="m3.34 11.538 1.953.8v11.51c0 1.86 1.45 2.81 3.25 2.81 1.8 0 3.25-.95 3.25-2.81v-11.5l1.96-.81s.7-.31.06-1.02c-.64-.71-1.63-.44-1.63-.44l-3.33 1.4c-.01 0-.01 0 0 0l-3.33-1.4c-.01 0-1 -.27-1.63.44-.64.71.05 1.02.05 1.02Z" fill="#000"></path><path d="M47.742 1.128h6.012v29.74h-5.87v-1.78c-.765 1.17-2.373 2.05-4.57 2.05-3.66 0-6.6-2.9-6.6-7.25 0-4.78 3.35-7.46 6.83-7.46 1.94 0 3.43.64 4.2 1.7v-17Z" fill="#000"></path><path d="M47.882 11.388c-.625-1.08-1.91-1.57-3.18-1.57-2.4 0-4.04 1.93-4.04 4.88 0 2.85 1.63 4.96 4.14 4.96 1.25 0 2.45-.55 3.08-1.74v-6.53Z" fill="#000"></path><path d="M72.93 11.048c-3.72 0-6.15 2.4-6.15 5.86 0 3.49 2.47 5.87 6.12 5.87 3.66 0 6.15-2.38 6.15-5.87 0-3.46-2.5-5.86-6.12-5.86Z" fill="#000"></path><path d="M72.94 20.378c-2.15 0-3.5-1.42-3.5-3.47s1.35-3.47 3.5-3.47c2.14 0 3.5 1.42 3.5 3.47s-1.36 3.47-3.5 3.47Z" fill="#000"></path><path d="M83.834 1.128h5.66v15.22c0 4.15 2.15 6.06 5.3 6.06 3.15 0 5.27-1.91 5.27-6.06V1.128h5.65v15.02c0 6.4-3.83 9.4-8.85 9.4-5.02 0-8.82-3-8.82-9.4V1.128Z" fill="#000"></path><path d="M57.64 11.048c-3.71 0-6.15 2.4-6.15 5.86 0 3.49 2.47 5.87 6.12 5.87 3.66 0 6.15-2.38 6.15-5.87 0-3.46-2.49-5.86-6.12-5.86Z" fill="#000"></path><path d="M57.65 20.378c-2.14 0-3.5-1.42-3.5-3.47s1.36-3.47 3.5-3.47c2.14 0 3.5 1.42 3.5 3.47s-1.36 3.47-3.5 3.47Z" fill="#000"></path></svg>
-      </div>
-      
-      <div class="flex-1 max-w-md mx-2 min-w-0">
-        <div class="relative">
-          <input type="text" placeholder="Search" 
-                 class="w-full bg-gray-100 rounded-full py-2 px-4 pl-10 text-sm focus:outline-none focus:ring-1 focus:ring-tiktok-accent/50">
-          <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
-        </div>
-      </div>
-      
-      <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
-        <button class="bg-tiktok-accent text-white font-semibold px-4 sm:px-6 py-2 rounded-md transition hover:bg-red-600">Log in</button>
-        <button class="text-gray-800 text-xl hover:text-black transition"><i class="fas fa-ellipsis-v"></i></button>
-      </div>
-    </div>
-  </header>
-
-
-  <main class="container mx-auto px-4 py-6">
-    <div class="bg-white rounded-xl shadow-tiktok p-4 md:p-6 max-w-4xl mx-auto">
-      <div class="flex-1 min-w-0">
-        <div class="flex items-center justify-between gap-4 mb-6">
-          <h1 class="text-2xl font-bold flex-shrink-0">Get Coins</h1>
-          <a href="#" class="text-sm font-medium text-gray-700 hover:text-tiktok-accent transition whitespace-nowrap">View transaction history</a>
-        </div>
+    <div class="secure-title-container">
+        <svg class="shield-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3A5.25 5.25 0 0012 1.5zm-3.75 5.25a3.75 3.75 0 107.5 0v3h-7.5v-3z" clip-rule="evenodd" />
+            <path fill-rule="evenodd" d="M12.97 15.97a.75.75 0 011.06 0l.97.97a.75.75 0 01-1.06 1.06l-.97-.97a.75.75 0 010-1.06zm-3.03-3.03a.75.75 0 010 1.06l-1.5 1.5a.75.75 0 01-1.06-1.06l1.5-1.5a.75.75 0 011.06 0z" clip-rule="evenodd" />
+        </svg>
         
-        <div class="relative mb-6">
-          <input type="text" id="user-input" placeholder="Enter username" 
-                 class="w-full bg-gray-100 rounded-lg py-3 px-5 text-base focus:outline-none">
-          <button id="clear-input-btn" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden">
-            <i class="fas fa-times-circle"></i>
-          </button>
-        </div>
-
-        <div class="bg-red-50 border border-red-100 rounded-lg p-3 mb-6">
-          <p class="text-tiktok-accent text-sm flex items-start">
-            <i class="fas fa-info-circle mt-0.5 mr-2"></i>
-            <span>Recharge: Save around 25% with a lower third-party service fee.</span>
-          </p>
-        </div>
-      
-        <div class="mb-8">
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-              <div class="coin-option bg-tiktok-accent/10 border-2 border-tiktok-accent rounded-lg p-4 cursor-pointer shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">30</span></div>
-                <p class="text-center font-medium">£0.29</p>
-              </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">350</span></div>
-                <p class="text-center font-medium">£3.30</p>
-              </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">700</span></div>
-                <p class="text-center font-medium">£6.59</p>
-              </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">1,400</span></div>
-                <p class="text-center font-medium">£13.19</p>
-              </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">3,500</span></div>
-                <p class="text-center font-medium">£32.95</p>
-              </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">7,000</span></div>
-                <p class="text-center font-medium">£65.85</p>
-              </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover">
-                <div class="flex items-center justify-center mb-1"><i class="fas fa-coins text-tiktok-coin-yellow mr-1"></i><span class="font-bold">17,500</span></div>
-                <p class="text-center font-medium">£164.55</p>
-              </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover">
-                <div class="flex flex-col items-center justify-center"><i class="fas fa-plus-circle text-tiktok-accent mb-1"></i><span class="font-bold text-sm">Custom</span><span class="text-xs text-tiktok-gray-dark">Large amount supported</span></div>
-              </div>
-            </div>
-        </div>
-        
-      </div>
+        <h1 class="title-text">Get Coins</h1>
     </div>
-  </main>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // 获取元素
-      const userInput = document.getElementById('user-input');
-      const popupHeader = document.getElementById('popup-header');
-      const clearInputBtn = document.getElementById('clear-input-btn');
-      const bodyEl = document.body;
 
-      // 弹出/推开导航栏的逻辑
-      userInput.addEventListener('focus', () => {
-        popupHeader.classList.remove('-translate-y-full'); // 让导航栏滑入
-        bodyEl.classList.add('body-with-header'); // 让主内容区向下移动
-      });
-      
-      // 清除按钮的显示/隐藏逻辑
-      userInput.addEventListener('input', () => {
-        clearInputBtn.classList.toggle('hidden', userInput.value.length === 0);
-      });
-
-      clearInputBtn.addEventListener('click', () => {
-        userInput.value = '';
-        clearInputBtn.classList.add('hidden');
-        userInput.focus();
-      });
-
-      // --- 其他所有JS代码保持不变 ---
-    });
-  </script>
 </body>
 </html>
