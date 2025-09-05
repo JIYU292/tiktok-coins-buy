@@ -96,7 +96,7 @@
 
     /* To prevent page content from being obscured by the bottom button */
     main.with-bottom-bar {
-        margin-bottom: 140px; /* leave enough space */
+        margin-bottom: 160px; /* leave enough space */
     }
 
     /* Styles for the new bottom sheet modal */
@@ -170,8 +170,8 @@
   </header>
 
 
-  <main class="container mx-auto px-2 py-6 with-bottom-bar">
-    <div class="max-w-4xl mx-auto flex flex-col gap-4">
+  <main class="container mx-auto px-4 py-6 with-bottom-bar">
+    <div class="max-w-lg mx-auto flex flex-col gap-4">
 
       <div class="bg-white rounded-xl shadow-tiktok p-4 md:p-6">
         <div id="main-recharge-view">
@@ -179,7 +179,7 @@
             <h1 class="text-2xl font-semibold flex-shrink-0">Get Coins</h1> <a href="#" class="text-sm font-semibold text-gray-700 hover:text-tiktok-accent transition whitespace-nowrap">View transaction history</a>
           </div>
           
-          <div class="relative mb-6">
+          <div class="relative mb-6 w-2/3">
             <input type="text" id="user-input" placeholder="Enter username" 
                    class="w-full bg-gray-100 rounded-lg py-3 px-5 text-base focus:outline-none">
             <button id="clear-input-btn" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden">
@@ -250,11 +250,22 @@
           <i class="fas fa-chevron-right text-gray-400"></i>
       </div>
 
+      <div class="bg-white rounded-xl p-4 border border-gray-200 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <img src="https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/unified-wallet/web-recharge-mobile/resource/image/home_screen_thumbnail.dee906dc.png" width="56" height="56" alt="home_screen_thumbnail">
+          <div>
+            <p class="font-semibold text-gray-800">Add to Home Screen</p>
+            <p class="text-sm text-gray-500">And get a 5% discount!</p>
+          </div>
+        </div>
+        <button class="bg-gray-100 text-gray-800 font-semibold px-5 py-2 rounded-md hover:bg-gray-200 transition-colors">Add</button>
+      </div>
+
     </div>
   </main>
 
   <div class="fixed-bottom-btn !pt-2">
-    <div class="container mx-auto px-2 max-w-4xl">
+    <div class="mx-auto px-4">
       
       <div class="flex items-center justify-between mb-3">
           <p class="text-sm text-gray-500">Special offer</p>
