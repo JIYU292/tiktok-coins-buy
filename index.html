@@ -96,7 +96,7 @@
 
     /* To prevent page content from being obscured by the bottom button */
     main.with-bottom-bar {
-        margin-bottom: 120px; /* leave enough space */
+        margin-bottom: 140px; /* leave enough space */
     }
 
     /* Styles for the new bottom sheet modal */
@@ -248,13 +248,14 @@
           <i class="fas fa-chevron-right text-gray-400"></i>
       </div>
 
-      </div>
+    </div>
   </main>
 
   <div class="fixed-bottom-btn">
     <div class="container mx-auto px-4 max-w-md">
-      <div class="bg-white rounded-xl p-3 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition mb-3 -ml-4 -mr-4">
-          <p class="font-semibold text-sm text-gray-700">Special offer</p>
+      
+      <div class="p-3 flex items-center justify-between cursor-pointer mb-2">
+          <p class="text-sm text-gray-500">Special offer</p>
           <div class="flex items-center gap-2">
               <p class="text-sm text-gray-500">Add to home screen to apply</p>
               <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
@@ -262,11 +263,11 @@
       </div>
 
       <div class="flex items-center justify-center gap-4 mb-4">
-          <img class="h-5 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/visa_acffbd.png" alt="VISA">
-          <img class="h-5 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/mastercard_light_5865fd.png" alt="MASTER">
-          <img class="h-5 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/card_american_express_51cd3f.png" alt="AMEX">
-          <img class="h-5 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/paypal-light_839c52.png" alt="PAYPAL">
-          <img class="h-5 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/google-pay_17708c.png" alt="GOOGLEPAY">
+          <img class="h-4 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/visa_acffbd.png" alt="VISA">
+          <img class="h-4 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/mastercard_light_5865fd.png" alt="MASTER">
+          <img class="h-4 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/card_american_express_51cd3f.png" alt="AMEX">
+          <img class="h-4 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/paypal-light_839c52.png" alt="PAYPAL">
+          <img class="h-4 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/google-pay_17708c.png" alt="GOOGLEPAY">
       </div>
       <button id="buy-button" class="w-full bg-tiktok-accent text-white font-bold text-base py-2 rounded-full shadow-md hover:bg-red-600 transition flex items-center justify-center disabled:bg-tiktok-accent/40 disabled:cursor-not-allowed">
         <span id="buy-button-icon-container" class="mr-2">
@@ -325,7 +326,8 @@
             <button class="keypad-key bg-gray-100 rounded-lg h-10 flex items-center justify-center hover:bg-gray-200 transition" data-key="0">0</button>
         </div>
         
-        <div class="mt-4 border-t pt-3"> <div class="flex items-center justify-between mb-3"> <span class="text-base font-bold">Total</span> <span id="custom-total-price" class="text-base font-bold">£0.00</span> </div>
+        <div class="mt-4 border-t pt-3">
+          <div class="flex items-center justify-between mb-3"> <span class="text-base font-bold">Total</span> <span id="custom-total-price" class="text-base font-bold">£0.00</span> </div>
           <button id="modal-recharge-button" class="w-full bg-tiktok-accent text-white font-bold text-base py-2.5 rounded-full shadow-md hover:bg-red-600 transition flex items-center justify-center disabled:bg-tiktok-accent/40 disabled:cursor-not-allowed"> <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" class="mr-2"><path d="M28.22 13.7a4.83 4.83 0 0 0 4.86 4.8l-.04 3.45c-1.77 0-3.4-.53-4.75-1.43l-.09 6.99a6.64 6.64 0 0 1-6.69 6.3 6.44 6.44 0 0 1-6.53-6.45 6.63 6.63 0 0 1 7.61-6.4l-.04 3.7a2.97 2.97 0 0 0-3.88 2.7 2.85 2.85 0 0 0 2.89 2.85 2.93 2.93 0 0 0 2.96-2.85l.16-13.66h3.54Z"></path><path d="M5 23.15V10.5c0-1.2 1.06-2.17 2.26-2.28 3.05-.25 8.87-1.52 15.34-6.99.8-.67 2-.67 2.8 0 6.46 5.46 12.28 6.74 15.34 7 1.2.1 2.26 1.07 2.26 2.27v12.65c0 14.13-14.77 21.8-18.27 23.43-.47.22-1 .22-1.47 0C19.76 44.96 5 37.28 5 23.15Zm4-11.1v11.1c0 5.57 2.88 10.04 6.56 13.5 3.1 2.91 6.5 4.86 8.44 5.85a37.07 37.07 0 0 0 8.43-5.85C36.11 33.2 39 28.72 39 23.15V12.04c-3.65-.53-9.1-2.16-15-6.8-5.91 4.64-11.35 6.27-15 6.8Z"></path></svg>
             Recharge
           </button>
