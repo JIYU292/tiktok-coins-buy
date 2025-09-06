@@ -33,7 +33,8 @@
           },
           boxShadow: {
             'tiktok': '0 1px 2px rgba(0, 0, 0, 0.05)',
-            'tiktok-hover': '0 2px 8px rgba(0, 0, 0, 0.08)'
+            'tiktok-hover': '0 2px 8px rgba(0, 0, 0, 0.08)',
+            'xl': '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
           },
           keyframes: {
             bounce: {
@@ -98,13 +99,25 @@
         margin-bottom: 160px; /* leave enough space */
     }
 
-    /* Styles for the new bottom sheet modal */
+    /* Styles for the custom coin bottom sheet modal */
     body.modal-open #custom-coin-overlay {
         opacity: 1;
         pointer-events: auto;
     }
     body.modal-open #custom-coin-modal {
         transform: translateY(0);
+    }
+
+    /* Styles for Order Summary Modal */
+    #order-summary-overlay, #order-summary-modal {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease-in-out;
+    }
+    body.summary-modal-open #order-summary-overlay,
+    body.summary-modal-open #order-summary-modal {
+        opacity: 1;
+        pointer-events: auto;
     }
 
     /* Custom cursor style */
@@ -356,6 +369,85 @@
         </div>
     </div>
   </div>
+
+  <div id="order-summary-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-[60] opacity-0 pointer-events-none transition-opacity duration-300"></div>
+  <div id="order-summary-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl z-[70] w-full max-w-md opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="p-5">
+      <div class="relative text-center mb-2">
+        <h2 class="text-lg font-bold">Order summary</h2>
+        <button id="close-summary-btn" class="absolute top-0 right-0 text-gray-400 hover:text-gray-800">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="flex items-center justify-center gap-1 text-xs text-gray-500 mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+        </svg>
+        <span>Your info is private and secure.</span>
+      </div>
+
+      <div class="bg-gray-100 rounded-lg p-3 mb-4">
+        <div class="flex justify-between items-center text-sm">
+          <span class="text-gray-600">Account</span>
+          <div class="flex items-center gap-2">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+            <span id="summary-username" class="font-medium text-gray-800">user6985000861629</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-gray-100 rounded-lg p-3 mb-4">
+        <div class="flex justify-between items-center text-sm">
+          <span class="text-gray-600">Total</span>
+          <div class="text-right">
+            <p id="summary-coins" class="font-bold text-gray-900">0 Coins</p>
+            <p id="summary-price" class="text-xs text-gray-500">£0.00</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-bold text-base mb-3">Payment method</h3>
+        <div class="space-y-3 text-sm">
+          <div class="border border-tiktok-accent rounded-lg p-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <input type="radio" name="payment-method" class="form-radio h-4 w-4 text-tiktok-accent" checked>
+              <img src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/mastercard_light_5865fd.png" class="h-4">
+              <span class="font-medium">zh****9@gmail.com</span>
+            </div>
+            <button class="text-gray-600 font-bold">···</button>
+          </div>
+          <div class="border border-gray-200 rounded-lg p-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <input type="radio" name="payment-method" class="form-radio h-4 w-4 text-tiktok-accent">
+              <span class="font-medium">Add Credit Or Debit Card</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <img class="h-4 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/visa_acffbd.png" alt="VISA">
+              <img class="h-4 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/mastercard_light_5865fd.png" alt="MASTER">
+              <img class="h-4 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/card_american_express_51cd3f.png" alt="AMEX">
+            </div>
+          </div>
+          <div class="border border-gray-200 rounded-lg p-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <input type="radio" name="payment-method" class="form-radio h-4 w-4 text-tiktok-accent">
+              <span class="font-medium">PayPal</span>
+            </div>
+            <img class="h-4 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/paypal-light_839c52.png" alt="PAYPAL">
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-6">
+        <button class="w-full bg-tiktok-accent text-white font-bold py-3 rounded-lg shadow-md hover:bg-red-600 transition">Pay now</button>
+      </div>
+    </div>
+  </div>
   
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -382,6 +474,13 @@
       const keypadKeys = document.querySelectorAll('.keypad-key');
       const customTotalPrice = document.getElementById('custom-total-price');
       const modalRechargeButton = document.getElementById('modal-recharge-button');
+      
+      // Order Summary Modal elements
+      const orderSummaryModal = document.getElementById('order-summary-modal');
+      const orderSummaryOverlay = document.getElementById('order-summary-overlay');
+      const closeSummaryBtn = document.getElementById('close-summary-btn');
+      const summaryCoins = document.getElementById('summary-coins');
+      const summaryPrice = document.getElementById('summary-price');
       
       let customCoinAmount = '';
       const COIN_RATE = 0.29 / 30; 
@@ -496,6 +595,30 @@
               customTotalPrice.textContent = '£0';
           }
       }
+
+      // --- NEW FEATURE: Order Summary Modal ---
+
+      function openSummaryModal() {
+        // Populate the summary modal
+        const amount = parseInt(customCoinAmount, 10) || 0;
+        summaryCoins.textContent = `${amount.toLocaleString('en-US')} Coins`;
+        summaryPrice.textContent = customTotalPrice.textContent;
+        
+        // Show the summary modal
+        bodyEl.classList.add('summary-modal-open');
+      }
+
+      function closeSummaryModal() {
+        bodyEl.classList.remove('summary-modal-open');
+      }
+      
+      modalRechargeButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        openSummaryModal();
+      });
+
+      closeSummaryBtn.addEventListener('click', closeSummaryModal);
+      orderSummaryOverlay.addEventListener('click', closeSummaryModal);
 
       // Ensure first option is selected on page load
       if (coinOptions.length > 0) {
