@@ -48,22 +48,12 @@
             blink: {
               '0%, 100%': { opacity: 1 },
               '50%': { opacity: 0 },
-            },
-            'circle-orbit-1': {
-              '0%': { transform: 'rotate(0deg) translateX(12px) rotate(0deg)' },
-              '100%': { transform: 'rotate(360deg) translateX(12px) rotate(-360deg)' }
-            },
-            'circle-orbit-2': {
-              '0%': { transform: 'rotate(180deg) translateX(12px) rotate(-180deg)' },
-              '100%': { transform: 'rotate(540deg) translateX(12px) rotate(-540deg)' }
             }
           },
           animation: {
             bounce: 'bounce 1s infinite',
             spin: 'spin 1.5s linear infinite',
             blink: 'blink 1s infinite step-end',
-            'circle-1': 'circle-orbit-1 1.5s linear infinite',
-            'circle-2': 'circle-orbit-2 1.5s linear infinite',
           }
         }
       }
@@ -468,9 +458,9 @@
   <div id="processing-modal-wrapper" class="modal">
     <div id="processing-overlay" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 z-[80]"></div>
     <div id="processing-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl z-[90] w-72 p-8 flex flex-col items-center gap-4">
-      <div class="relative w-12 h-12">
-        <div class="absolute w-6 h-6 bg-cyan-400 rounded-full animate-circle-1"></div>
-        <div class="absolute w-6 h-6 bg-tiktok-accent rounded-full animate-circle-2"></div>
+      <div class="relative w-12 h-12 animate-spin">
+        <div class="absolute top-0 left-0 w-6 h-6 bg-cyan-400 rounded-full"></div>
+        <div class="absolute bottom-0 right-0 w-6 h-6 bg-tiktok-accent rounded-full"></div>
       </div>
       <p class="font-bold text-lg text-center">Processing your payment</p>
       <p class="text-gray-500 text-sm">This could take few seconds</p>
@@ -540,7 +530,6 @@
       let customCoinAmount = '';
       const COIN_RATE = 0.29 / 30; 
       const MAX_COINS = 2500000;
-      let isCustomMode = false;
 
       // --- Modal Logic ---
       function openModal(wrapper) {
@@ -555,7 +544,6 @@
 
       // --- Custom Coin Modal ---
       function openCustomCoinModal() {
-        isCustomMode = true;
         openModal(customCoinModalWrapper);
         customCoinModal.classList.remove('translate-y-full');
         fixedBottomBtn.style.display = 'none';
@@ -567,7 +555,6 @@
         customCoinModal.classList.add('translate-y-full');
         fixedBottomBtn.style.display = 'block';
         customCoinAmount = '';
-        isCustomMode = false;
         if (coinOptions.length > 0) {
             coinOptions[0].click(); 
         }
@@ -577,15 +564,16 @@
       customCoinOverlay.addEventListener('click', closeCustomCoinModal);
 
       // --- Order Summary Modal ---
-      function openSummaryModal() {
+      function openSummaryModal(customData = null) {
         const username = userInput.value;
         const displayName = username.trim() !== '' ? username : 'user...';
         summaryUsername.textContent = displayName;
 
         let amount, priceText;
-        if(isCustomMode){
-          amount = parseInt(customCoinAmount, 10) || 0;
-          priceText = customTotalPrice.textContent;
+        
+        if (customData) {
+            amount = customData.amount;
+            priceText = customData.priceText;
         } else {
           const selectedOption = document.querySelector('.coin-option.border-tiktok-accent');
           if(selectedOption){
@@ -605,21 +593,29 @@
       
       modalRechargeButton.addEventListener('click', (event) => {
         event.preventDefault();
+        const customData = {
+          amount: parseInt(customCoinAmount, 10) || 0,
+          priceText: customTotalPrice.textContent
+        };
         closeCustomCoinModal();
-        openSummaryModal();
+        openSummaryModal(customData);
       });
-      buyButton.addEventListener('click', openSummaryModal);
+      buyButton.addEventListener('click', () => openSummaryModal());
       closeSummaryBtn.addEventListener('click', closeSummaryModal);
       orderSummaryOverlay.addEventListener('click', closeSummaryModal);
 
       // --- Processing and Completed Flow ---
       function startCountdown() {
-        let duration = 5 * 60; // 5 minutes in seconds
+        clearInterval(countdownInterval); 
+        countdownTimer.textContent = '05:00';
+        let duration = 5 * 60;
+
         countdownInterval = setInterval(() => {
+          duration--;
           const minutes = Math.floor(duration / 60).toString().padStart(2, '0');
           const seconds = (duration % 60).toString().padStart(2, '0');
           countdownTimer.textContent = `${minutes}:${seconds}`;
-          if (--duration < 0) {
+          if (duration <= 0) {
             clearInterval(countdownInterval);
           }
         }, 1000);
@@ -640,7 +636,7 @@
           
           completedDetails.textContent = `You top up ${coins} to ${user}, and you can use the coins to send virtual gifts, 24hr-arrival`;
           openModal(completedModalWrapper);
-        }, 4000); // 4 seconds
+        }, 4000);
       });
 
       goBackButton.addEventListener('click', () => {
@@ -669,7 +665,6 @@
           if (coins === 'Custom') {
             openCustomCoinModal();
           } else {
-            isCustomMode = false;
             coinOptions.forEach(opt => {
               opt.classList.remove('border-tiktok-accent', 'bg-red-50');
               opt.classList.add('border-gray-200', 'bg-gray-100');
@@ -694,9 +689,7 @@
                   customCoinAmount = potentialAmount;
               }
           }
-          if (isCustomMode) {
-            updateCustomView();
-          }
+          updateCustomView();
         });
       });
       
