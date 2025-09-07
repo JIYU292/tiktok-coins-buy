@@ -135,6 +135,11 @@
     .font-tiktokdisplay {
         font-family: 'TikTokDisplay-Bold', sans-serif;
     }
+    
+    /* Disable double-tap to zoom on keypad buttons */
+    #keypad .keypad-key {
+      touch-action: manipulation;
+    }
   </style>
 </head>
 
@@ -353,7 +358,7 @@
 
   <div id="order-summary-modal-wrapper" class="modal">
     <div id="order-summary-overlay" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 z-[60]"></div>
-    <div id="order-summary-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl z-[70] w-full max-w-xs">
+    <div id="order-summary-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl z-[70] w-72">
       <div class="p-5">
         <div class="relative text-center mb-3">
           <h2 class="text-lg font-bold">Order summary</h2>
