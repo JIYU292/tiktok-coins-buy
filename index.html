@@ -49,23 +49,27 @@
               '0%, 100%': { opacity: 1 },
               '50%': { opacity: 0 },
             },
-            'orbit-one': {
-              '0%': { transform: 'rotate(0deg) translateX(12px) scale(0.75)', 'z-index': 10 },
-              '50%': { transform: 'rotate(180deg) translateX(12px) scale(1)', 'z-index': 0 },
-              '100%': { transform: 'rotate(360deg) translateX(12px) scale(0.75)', 'z-index': 10 }
+            'move-left-right': {
+              '0%': { transform: 'translateX(-16px) scale(1)', opacity: 1 },
+              '25%': { transform: 'translateX(0px) scale(0.7)', opacity: 0.8 },
+              '50%': { transform: 'translateX(16px) scale(1)', opacity: 1 },
+              '75%': { transform: 'translateX(0px) scale(0.7)', opacity: 0.8 },
+              '100%': { transform: 'translateX(-16px) scale(1)', opacity: 1 }
             },
-            'orbit-two': {
-              '0%': { transform: 'rotate(180deg) translateX(12px) scale(1)', 'z-index': 0 },
-              '50%': { transform: 'rotate(360deg) translateX(12px) scale(0.75)', 'z-index': 10 },
-              '100%': { transform: 'rotate(540deg) translateX(12px) scale(1)', 'z-index': 0 }
+            'move-right-left': {
+              '0%': { transform: 'translateX(16px) scale(1)', opacity: 1 },
+              '25%': { transform: 'translateX(0px) scale(0.7)', opacity: 0.8 },
+              '50%': { transform: 'translateX(-16px) scale(1)', opacity: 1 },
+              '75%': { transform: 'translateX(0px) scale(0.7)', opacity: 0.8 },
+              '100%': { transform: 'translateX(16px) scale(1)', opacity: 1 }
             }
           },
           animation: {
             bounce: 'bounce 1s infinite',
             spin: 'spin 1.5s linear infinite',
             blink: 'blink 1s infinite step-end',
-            'orbit-one': 'orbit-one 2s linear infinite',
-            'orbit-two': 'orbit-two 2s linear infinite',
+            'move-left': 'move-left-right 1.5s ease-in-out infinite',
+            'move-right': 'move-right-left 1.5s ease-in-out infinite',
           }
         }
       }
@@ -82,6 +86,12 @@
     /* Add top padding to body when header appears */
     body.body-with-header {
       padding-top: 6.5rem; /* 2.5rem (safety banner) + 4rem (main header) */
+    }
+
+    /* Prevent mobile browser zoom on input focus */
+    input[type="text"],
+    input[type="search"] {
+      font-size: 16px;
     }
     
     /* Dynamic text underline effect */
@@ -167,7 +177,7 @@
       
       <div class="flex-1 min-w-0 mx-2">
         <div class="relative">
-          <input type="text" placeholder="Search" 
+          <input type="search" placeholder="Search" 
                  class="w-full bg-gray-100 rounded-full py-2 px-4 pl-10 text-sm focus:outline-none focus:ring-1 focus:ring-tiktok-accent/50">
           <div class="absolute left-0 inset-y-0 pl-4 flex items-center pointer-events-none">
             <i class="fas fa-search text-gray-400 text-sm"></i>
@@ -183,7 +193,7 @@
   </header>
 
 
-  <main class="py-6 with-bottom-bar">
+  <main class="pt-2 pb-6 with-bottom-bar">
     <div class="max-w-7xl mx-auto px-1 sm:px-4 flex flex-col gap-3">
 
       <div class="bg-white rounded-xl shadow-tiktok p-4 md:p-6">
@@ -194,7 +204,7 @@
           
           <div class="relative mb-6 w-2/3">
             <input type="text" id="user-input" placeholder="Enter username" 
-                   class="w-full bg-gray-100 rounded-lg py-3 px-5 text-base focus:outline-none">
+                   class="w-full bg-gray-100 rounded-lg py-3 px-5 focus:outline-none">
             <button id="clear-input-btn" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden">
               <i class="fas fa-times-circle"></i>
             </button>
@@ -471,8 +481,8 @@
     <div id="processing-overlay" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 z-[80]"></div>
     <div id="processing-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl z-[90] w-72 p-8 flex flex-col items-center gap-4">
       <div class="relative w-12 h-12 flex justify-center items-center">
-        <div class="absolute w-6 h-6 bg-cyan-400 rounded-full animate-orbit-one"></div>
-        <div class="absolute w-6 h-6 bg-tiktok-accent rounded-full animate-orbit-two"></div>
+        <div class="absolute w-6 h-6 bg-cyan-400 rounded-full animate-move-right"></div>
+        <div class="absolute w-6 h-6 bg-tiktok-accent rounded-full animate-move-left"></div>
       </div>
       <p class="font-bold text-lg text-center">Processing your payment</p>
       <p class="text-gray-500 text-sm">This could take few seconds</p>
