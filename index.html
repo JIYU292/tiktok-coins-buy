@@ -145,29 +145,6 @@
     .font-tiktokdisplay {
         font-family: 'TikTokDisplay-Bold', sans-serif;
     }
-    
-    /* Custom red radio button style for Order Summary */
-    #order-summary-modal input[type="radio"].form-radio {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      border-radius: 50%;
-      border: 1px solid #d1d5db; /* gray-300 */
-      background-color: #fff;
-    }
-    #order-summary-modal input[type="radio"].form-radio:checked {
-      background-image: none;
-      border: 2px solid #FE2C55; /* tiktok-accent */
-    }
-    #order-summary-modal input[type="radio"].form-radio:checked::before {
-      content: '';
-      display: block;
-      width: 8px;
-      height: 8px;
-      margin: 2px;
-      border-radius: 50%;
-      background-color: #FE2C55; /* tiktok-accent */
-    }
   </style>
 </head>
 
@@ -394,7 +371,7 @@
   </div>
 
   <div id="order-summary-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-[60] opacity-0 pointer-events-none transition-opacity duration-300"></div>
-  <div id="order-summary-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl z-[70] w-full max-w-sm opacity-0 pointer-events-none transition-opacity duration-300">
+  <div id="order-summary-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl z-[70] w-full max-w-xs opacity-0 pointer-events-none transition-opacity duration-300">
     <div class="p-5">
       <div class="relative text-center mb-3">
         <h2 class="text-lg font-bold">Order summary</h2>
@@ -433,17 +410,35 @@
       <div>
         <h3 class="font-bold text-base mb-3">Payment method</h3>
         <div class="space-y-3 text-sm">
-          <div class="border border-gray-200 rounded-lg p-3 flex items-center justify-between">
+          
+          <label class="border border-gray-200 rounded-lg p-3 flex items-center justify-between cursor-pointer">
             <div class="flex items-center gap-3">
-              <input type="radio" name="payment-method" class="form-radio h-4 w-4 text-tiktok-accent" checked>
+              <input type="radio" name="payment-method" class="sr-only peer" checked>
+              <span class="w-5 h-5 block rounded-full border-2 border-gray-300 peer-checked:hidden"></span>
+              <span class="w-5 h-5 hidden peer-checked:block text-tiktok-accent">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
+                  <path d="M23 12a11 11 0 11-22 0 11 11 0 0122 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" fill="none" class="text-gray-300" opacity="0"></path>
+                  <path d="M23 12a11 11 0 11-22 0 11 11 0 0122 0z" stroke="currentColor" stroke-width="1.33" stroke-linecap="square" fill="none"></path>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 20a8 8 0 100-16 8 8 0 000 16z" fill="currentColor"></path>
+                </svg>
+              </span>
               <img class="h-6 w-auto" data-e2e="payment-method-icon-image" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/paypal-light_839c52.png" style="opacity: 1; min-width: 26px;">
               <span class="font-medium">zh****9@gmail.com</span>
             </div>
             <button class="text-gray-600 font-bold">···</button>
-          </div>
-          <div class="border border-gray-200 rounded-lg p-3 flex items-center justify-between">
+          </label>
+
+          <label class="border border-gray-200 rounded-lg p-3 flex items-center justify-between cursor-pointer">
             <div class="flex items-center gap-3">
-              <input type="radio" name="payment-method" class="form-radio h-4 w-4 text-tiktok-accent">
+              <input type="radio" name="payment-method" class="sr-only peer">
+              <span class="w-5 h-5 block rounded-full border-2 border-gray-300 peer-checked:hidden"></span>
+              <span class="w-5 h-5 hidden peer-checked:block text-tiktok-accent">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
+                  <path d="M23 12a11 11 0 11-22 0 11 11 0 0122 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" fill="none" class="text-gray-300" opacity="0"></path>
+                  <path d="M23 12a11 11 0 11-22 0 11 11 0 0122 0z" stroke="currentColor" stroke-width="1.33" stroke-linecap="square" fill="none"></path>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 20a8 8 0 100-16 8 8 0 000 16z" fill="currentColor"></path>
+                </svg>
+              </span>
               <span class="font-medium">Add Credit Or Debit Card</span>
             </div>
             <div class="flex items-center gap-1">
@@ -451,14 +446,24 @@
               <img class="h-4 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/mastercard_light_5865fd.png" alt="MASTER">
               <img class="h-4 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/card_american_express_51cd3f.png" alt="AMEX">
             </div>
-          </div>
-          <div class="border border-gray-200 rounded-lg p-3 flex items-center justify-between">
+          </label>
+
+          <label class="border border-gray-200 rounded-lg p-3 flex items-center justify-between cursor-pointer">
             <div class="flex items-center gap-3">
-              <input type="radio" name="payment-method" class="form-radio h-4 w-4 text-tiktok-accent">
+              <input type="radio" name="payment-method" class="sr-only peer">
+              <span class="w-5 h-5 block rounded-full border-2 border-gray-300 peer-checked:hidden"></span>
+              <span class="w-5 h-5 hidden peer-checked:block text-tiktok-accent">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
+                  <path d="M23 12a11 11 0 11-22 0 11 11 0 0122 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" fill="none" class="text-gray-300" opacity="0"></path>
+                  <path d="M23 12a11 11 0 11-22 0 11 11 0 0122 0z" stroke="currentColor" stroke-width="1.33" stroke-linecap="square" fill="none"></path>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 20a8 8 0 100-16 8 8 0 000 16z" fill="currentColor"></path>
+                </svg>
+              </span>
               <span class="font-medium">PayPal</span>
             </div>
             <img class="h-4 w-auto" src="https://lf16-co.g-p-static.com/obj/pipo-sgcompliance/sky/paypal-light_839c52.png" alt="PAYPAL">
-          </div>
+          </label>
+
         </div>
       </div>
       
