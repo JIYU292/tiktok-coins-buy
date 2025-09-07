@@ -145,6 +145,13 @@
     .font-tiktokdisplay {
         font-family: 'TikTokDisplay-Bold', sans-serif;
     }
+
+    /* Custom style for checked radio button */
+    input[type="radio"].form-radio:checked {
+        background-color: #FE2C55;
+        border-color: #FE2C55;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+    }
   </style>
 </head>
 
@@ -371,7 +378,7 @@
   </div>
 
   <div id="order-summary-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-[60] opacity-0 pointer-events-none transition-opacity duration-300"></div>
-  <div id="order-summary-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl z-[70] w-full max-w-md opacity-0 pointer-events-none transition-opacity duration-300">
+  <div id="order-summary-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl z-[70] w-full max-w-sm opacity-0 pointer-events-none transition-opacity duration-300">
     <div class="p-5">
       <div class="relative text-center mb-5">
         <h2 class="text-lg font-bold">Order summary</h2>
