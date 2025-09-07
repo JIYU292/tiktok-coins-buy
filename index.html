@@ -449,7 +449,7 @@
           </div>
         </div>
         
-        <div class="mt-5">
+        <div class="mt-4">
           <button id="pay-now-button" class="w-full bg-tiktok-accent text-white font-bold py-3 rounded-lg shadow-md hover:bg-red-600 transition">Pay now</button>
         </div>
       </div>
@@ -637,7 +637,7 @@
           
           completedDetails.textContent = `You top up ${coins} to ${user}, and you can use the coins to send virtual gifts, 24hr-arrival`;
           openModal(completedModalWrapper);
-        }, 4000);
+        }, 3000); // Changed from 4000 to 3000
       });
 
       goBackButton.addEventListener('click', () => {
