@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-functions-compat.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
+        <h2 class="text-2xl font-bold mb-6 text-center">登录以继续</h2>
+        <form id="loginForm">
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">邮箱:</label>
+                <input type="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3" required>
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">密码:</label>
+                <input type="password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3" required>
+            </div>
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">登录</button>
+        </form>
+        <p id="errorMessage" class="text-red-500 text-xs italic mt-4 text-center"></p>
+    </div>
+
+    <script>
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyAuaPJYDQOFLyCTPrg6joWQPi9tqBfhV9Y",
+        authDomain: "my-tiktok-website.firebaseapp.com",
+        projectId: "my-tiktok-website",
+        storageBucket: "my-tiktok-website.firebasestorage.app",
+        messagingSenderId: "498666211488",
+        appId: "1:498666211488:web:f3e59407db70ba64f821c5",
+        measurementId: "G-DR30EMBFTX"
+      };
+      
+      // 初始化 Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      // ... 在您的 Firebase 配置代码之后 ...
+      const auth = firebase.auth();
+      const functions = firebase.functions();
+
+      const loginForm = document.getElementById('loginForm');
+      const errorMessage = document.getElementById('errorMessage');
+
+      loginForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const email = document.getElementById('email').value;
+          const password = document.getElementById('password').value; // 注意：此方案简化了密码处理
+          errorMessage.textContent = '正在处理...';
+
+          try {
+              // 1. 获取设备指纹
+              const fp = await FingerprintJS.load();
+              const result = await fp.get();
+              const fingerprintId = result.visitorId;
+              console.log("获取到的设备指纹是:", fingerprintId);
+
+              // 2. 验证用户邮箱和密码
+              const userCredential = await auth.signInWithEmailAndPassword(email, password);
+
+              // 3. 主动获取身份令牌 (这是关键！)
+              const idToken = await userCredential.user.getIdToken();
+
+              // 4. 使用 fetch 调用新的 HTTPS 函数
+              // ⚠️ 请注意：部署成功后，云函数网址可能会变化，请从Firebase控制台确认
+              const functionUrl = 'https://loginandbinddevice-jop763kuuq-uc.a.run.app';
+
+              const response = await fetch(functionUrl, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${idToken}` // 在请求头里带上身份令牌
+                  },
+                  body: JSON.stringify({ fingerprintId: fingerprintId }) // 在请求体里发送指纹
+              });
+
+              const resultData = await response.json();
+
+              if (!response.ok) {
+                  // 如果后端返回错误 (如403, 500等), 抛出错误
+                  throw new Error(resultData.error || '发生未知错误');
+              }
+
+              // 5. 处理成功结果
+              errorMessage.textContent = resultData.message;
+              errorMessage.classList.remove('text-red-500');
+              errorMessage.classList.add('text-green-500');
+              console.log("成功登录并绑定", resultData);
+
+              setTimeout(() => {
+                  window.location.href = './index.html';
+              }, 2000);
+
+          } catch (error) {
+              errorMessage.textContent = error.message;
+              console.error("处理失败:", error);
+          }
+      });
+    </script>
+</body>
+</html>
